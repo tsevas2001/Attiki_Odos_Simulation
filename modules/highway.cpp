@@ -1,6 +1,6 @@
 #include "../headers/highway.hpp"
 
-Highway::Highway()
+Highway::Highway(int maxVeh, vector<Segment> seg) : totalVehicles{maxVeh}, nSegs{seg}
 {
     cout << "Highway opened successfully!" << endl;
 }

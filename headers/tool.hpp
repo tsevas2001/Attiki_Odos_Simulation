@@ -1,16 +1,18 @@
+#ifndef TOOL_HPP
+#define TOOL_HPP
 #include "main.hpp"
 #include "entrance.hpp"
 
-using namespace std;
-
-class Tool : public Entrance
+class Tool
 {
 private:
     vector<Vehicle> waitingVehicles;
 
 public:
-    Tool();
-    void addVehicles();
-    void removeVehicles();
+    Tool(vector<Vehicle>);
+    void enter();
+    void exit();
     ~Tool();
 };
+
+#endif

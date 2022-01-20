@@ -1,18 +1,21 @@
+#ifndef ENTRANCE_HPP
+#define ENTRANCE_HPP
 #include "main.hpp"
 #include "segment.hpp"
+#include "tool.hpp"
 
-using namespace std;
-
-class Entrance : public Segment
+class Entrance
 {
 private:
-    String nodeName;
+    string nodeName;
     vector<Tool> collectorTool;
     vector<Tool> eTool;
     int capacity;
 
 public:
-    Entrance();
+    Entrance(string, vector<Tool>, vector<Tool>, int);
+    void exit();
     ~Entrance();
-    virtual void removeVehicle() = 0; // pure virtual
 };
+
+#endif

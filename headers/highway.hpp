@@ -1,7 +1,7 @@
+#ifndef HIGHWAY_HPP
+#define HIGHWAY_HPP
 #include "main.hpp"
 #include "segment.hpp"
-
-using namespace std;
 
 class Highway
 {
@@ -10,7 +10,7 @@ private:
     int totalVehicles;
 
 public:
-    Highway();
+    Highway(int, vector<Segment>);
     void operate();
     void enter();
     void exit();
@@ -18,3 +18,5 @@ public:
     int get_no_of_vehicles();
     ~Highway();
 };
+
+#endif

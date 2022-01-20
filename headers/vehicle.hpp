@@ -1,19 +1,20 @@
+#ifndef VEHICLE_HPP
+#define VEHICLE_HPP
 #include "main.hpp"
-#include "segment.hpp"
-
-using namespace std;
 
 class Vehicle
 {
 private:
     int id;
     int indication;
-    Node currentNode;
+    string currentNode;
     Segment currentSegm;
 
 public:
-    Vehicle(int, Node, Segment);
+    Vehicle(int, string, Segment);
     void getInfo();
-    void setInfo(Node, Segment);
+    void setInfo(string, Segment);
     ~Vehicle();
 };
+
+#endif
