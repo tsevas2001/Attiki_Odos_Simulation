@@ -9,3 +9,10 @@ Segment::~Segment()
 {
     cout << "Segment destroyed successfully!" << endl;
 }
+
+void Segment::print()
+{
+    cout << "Vehicles of segment[: " << indication << "]: " << endl;
+
+    copy(vehicles.begin(), vehicles.end(), ostream_iterator<Vehicle>(cout, " "));
+}

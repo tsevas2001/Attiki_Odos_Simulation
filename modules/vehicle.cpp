@@ -1,17 +1,19 @@
 #include "../headers/vehicle.hpp"
 
-Vehicle::Vehicle(int num, Node node, Segment segm) : id{num}, currentNode{node}, currentSegm{segm}
+Vehicle::Vehicle(int num, string node, Segment segm) : id{num}, exitNode{node}, currentSegm{segm}
 {
     indication = -1;
-    cout << "Vehicle with ID: " << id << ", Current Node: " << currentNode << ", Current Segment: " << currentSegn << " Created Successfully!" << endl;
+    cout << "Vehicle with ID: " << id << ", Current Node: " << exitNode << ", Current Segment: " << exitNode << " Created Successfully!" << endl;
 }
 
 void Vehicle::getInfo()
 {
-    cout << "Vehicle with ID: " << id << ", Current Node: " << currentNode << ", Current Segment: " << currentSegn << endl;
+    cout << "Vehicle with ID: " << id << ", Current Node: " << exitNode << ", Current Segment: " << exitNode << endl;
 }
 
-void Vehicle::setInfo(Node node, Segment segm) : currentNode{node}, currentSegm{segm} {}
+// void Vehicle::setInfo(string node, Segment segm) : exitNode{node}, currentSegm{segm}
+// {
+// }
 
 Vehicle::~Vehicle()
 {

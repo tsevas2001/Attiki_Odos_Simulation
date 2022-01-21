@@ -21,6 +21,7 @@ public:
     void exit();
     void pass();
     int get_no_of_vahicles();
+    void print();
     ~Segment();
 };
 

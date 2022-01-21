@@ -4,6 +4,7 @@
 #include <time.h>
 #include <string.h>
 #include <vector>
+#include <iterator>
 
 using namespace std;
 
