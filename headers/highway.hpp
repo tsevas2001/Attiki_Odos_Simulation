@@ -12,10 +12,6 @@ private:
 public:
     Highway(int, vector<Segment>);
     void operate();
-    void enter();
-    void exit();
-    void pass();
-    int get_no_of_vehicles();
     ~Highway();
 };
 
