@@ -1,21 +1,30 @@
 #ifndef VEHICLE_HPP
 #define VEHICLE_HPP
 #include "main.hpp"
-#include "segment.hpp"
+
+enum states{
+    SUCCESS,
+    FAIL,
+    EXIT
+};
 
 class Vehicle
 {
-private:
-    int id;
-    int indication;  // shows in which segment of vehicle is the vehicle
-    string exitNode; // destinationo of vehicle
-    Segment currentSegm;
+    private:
+        const int exitNode; // destinationo of vehicle
+        int currentSegm;
+        bool ready;
 
-public:
-    Vehicle(int, string, Segment);
-    void getInfo();
-    void setInfo(string, Segment);
-    ~Vehicle();
+    public:
+        Vehicle(int, int);
+        bool isReady();
+        int getExitNode();
+        void prepare();
+        void enter(int);
+        void ChangeSeg();
+        states progress();
+        
+        ~Vehicle();
 };
 
 #endif

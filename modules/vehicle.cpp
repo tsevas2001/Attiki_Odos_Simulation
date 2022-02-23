@@ -1,21 +1,45 @@
 #include "../headers/vehicle.hpp"
 
-Vehicle::Vehicle(int num, string node, Segment segm) : id{num}, exitNode{node}, currentSegm{segm}
+Vehicle::Vehicle(int node, int segm) : exitNode{node}, currentSegm{segm}
 {
-    indication = -1;
-    cout << "Vehicle with ID: " << id << ", Current Node: " << exitNode << ", Current Segment: " << exitNode << " Created Successfully!" << endl;
+    ready = false;
+    cout << "Vehicle with current Node: " << exitNode << ", Current Segment: " << currentSegm << " Created Successfully!" << endl;
 }
 
-void Vehicle::getInfo()
-{
-    cout << "Vehicle with ID: " << id << ", Current Node: " << exitNode << ", Current Segment: " << exitNode << endl;
+bool Vehicle::isReady(){
+    return ready;
 }
 
-// void Vehicle::setInfo(string node, Segment segm) : exitNode{node}, currentSegm{segm}
-// {
-// }
+int Vehicle::getExitNode(){
+    return exitNode;
+}
+
+void Vehicle::prepare(){
+    ready = true;
+}
+
+void Vehicle::enter(int segm) {
+    currentSegm = segm;
+}
+
+void Vehicle::ChangeSeg() {
+    currentSegm++;
+    ready = false;
+}
+
+states Vehicle::progress(){
+    if (ready == false)
+        return FAIL;
+    ChangeSeg();
+    if (currentSegm == exitNode)
+        return EXIT;
+    
+    return SUCCESS;
+}
+
+
 
 Vehicle::~Vehicle()
 {
-    cout << "Vehicle ID: " << id << " destroyed successfully!" << endl;
+    cout << "Vehicle destroyed successfully!" << endl;
 }

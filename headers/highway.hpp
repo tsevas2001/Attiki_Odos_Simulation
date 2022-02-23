@@ -6,12 +6,15 @@
 class Highway
 {
 private:
-    vector<Segment> nSegs;
+    vector<Segment*> segments;
     int totalVehicles;
+    int nSegs;
 
 public:
-    Highway(int, vector<Segment>);
+    Highway();
     void operate();
+    void set(int);
+    void print();
     ~Highway();
 };
 
