@@ -2,20 +2,32 @@
 #define ENTRANCE_HPP
 #include "main.hpp"
 #include "segment.hpp"
-#include "tool.hpp"
+#include "toll.hpp"
 
 class Entrance
 {
 private:
-    string nodeName;
-    vector<Tool> collectorTool;
-    vector<Tool> eTool;
-    int capacity;
+    void addToBooths();
+    vector<Vehicle *> removeFromBooths(int);
+    void incrementCapacity();
+    void decrementCapacity();
+
+    const int node;
+    vector<collectorToll *> collectorTolls;
+    vector<eToll *> eTolls;
+
+    int totalCap; // added here to help with some checks
+    static int K;
 
 public:
-    Entrance(string, vector<Tool>, vector<Tool>, int);
-    void exit();
+    Entrance(int, int, int);
     ~Entrance();
+
+    vector<Vehicle *> operate(int);
+
+    int getNode() const { return node; }
+    int waitingVehicles();
+    static void setK(int Kval) { K = Kval; } // initialiser
 };
 
 #endif

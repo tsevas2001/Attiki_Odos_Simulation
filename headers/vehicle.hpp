@@ -2,7 +2,8 @@
 #define VEHICLE_HPP
 #include "main.hpp"
 
-enum states{
+enum states
+{
     SUCCESS,
     FAIL,
     EXIT
@@ -10,21 +11,20 @@ enum states{
 
 class Vehicle
 {
-    private:
-        const int exitNode; // destinationo of vehicle
-        int currentSegm;
-        bool ready;
+private:
+    const int exitNode; // destination of vehicle
+    int currentSegm;
+    bool ready;
 
-    public:
-        Vehicle(int, int);
-        bool isReady();
-        int getExitNode();
-        void prepare();
-        void enter(int);
-        void ChangeSeg();
-        states progress();
-        
-        ~Vehicle();
+public:
+    Vehicle(int, int);
+    bool isReady();
+    int getExitNode();
+    void prepare();
+    void enter(int);
+    void ChangeSeg();
+    states progress();
+    ~Vehicle();
 };
 
 #endif
