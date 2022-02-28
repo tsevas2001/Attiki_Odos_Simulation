@@ -5,6 +5,10 @@ Segment::Segment(Entrance* en, int cap, Segment* pre, int id) : ent{en}, capacit
     cout << "Creating segment with ID: " << id << endl;
     percent = 0;
 
+    int alreadyCarsIn = rand() % (capacity * 2/3) + 1;
+
+    
+
     cout << "Segment opened successfully!" << endl;
 }
 
@@ -40,6 +44,104 @@ void Segment::exit(){
         }
     }
 }
+
+void Segment::pass(){
+    
+    if (next == nullptr){
+        cout << "Exiting from the segment!" << endl;
+        return;
+    }
+
+    vector<Vehicle*> vehToPass;
+    vector<Vehicle*> vehToAdd;
+
+    int i;
+    // find the cars that should pass
+    for (i = 0; i < vehicles.size(); i++){
+        if(vehicles[i]->isReady() && (vehicles[i]->getExitNode() != ent->getExitNode())) {
+            cout << "Car: " << i << " is ready!" << endl;
+            vehToPass.push_back(vehicles[i]);
+            vehicles.erase(vehicles.begin() + i);
+        }
+    }
+    // Selecting random vehicle to stay if the next segment is full
+    while (vehToPass.size() > next->capacity){
+        cout << "A lot of cars!" << endl;
+        i = rand() % vehToPass.size();
+        vehToAdd.push_back(vehToPass[i]);
+        vehToPass.erase(vehToPass.begin() + i);
+    }
+
+    //Adding the chosen cars
+    for(Vehicle* veh : vehToAdd){
+        vehicles.push_back(veh);
+    }
+
+    //Adding cars to the next segment
+    next->enter(vehToPass);
+    passed = vehToPass.size();
+}
+
+void Segment::operate(){
+
+    // Exit vehicles from the highway
+    exit();
+    cout << "Vehicles left from the highway!" << endl;
+
+    // let the vehicles in from the previous segment
+    if (previous != nullptr){
+        previous->pass();
+        cout << "Vehicles have passed!" << endl;
+    }
+
+    int freeSpace = 0;
+    if (capacity > get_no_of_vahicles()){
+        cout << "Segment has free space!" << endl;
+        freeSpace = capacity - get_no_of_vahicles();
+        cout << "Free space: " << freeSpace << endl;
+        vector<Vehicle*> vehToAdd = ent->operate(freeSpace);
+        enter(vehToAdd);
+        cout << "Vehicles added" << endl;
+    }else{
+        cout << "This segment is full!" << endl;
+    }
+    entered = freeSpace;
+
+    // preparing the cars for the next round
+    int readifyCars = vehicles.size() * percent/100;
+    int randomSelect = rand() % vehicles.size();
+    int counterOfReadyCars = getReadyVeh();
+    int i = 0;
+    while (i < readifyCars && counterOfReadyCars < get_no_of_vahicles()){
+        
+        if (vehicles[randomSelect]->isReady() == false){
+            vehicles[randomSelect]->prepare();
+            counterOfReadyCars++;
+            i++;
+        }
+        randomSelect = rand() % vehicles.size();
+    }
+    cout << "Prepared cars: " << readifyCars; << endl;
+    
+}
+
+void Segment::setPrevious(Segment* seg){
+    previous = seg;
+    if (seg != nullptr)
+        seg->next = this;
+    cout << "Next segment set!" << endl;
+}
+
+// Returns the number of ready vehicles
+int Segment::getReadyVeh(){
+    int ready = 0;
+    for (Vehicle* veh : vehicles){
+        if (veh->isReady())
+            ready++;
+    }
+    return ready;
+}
+
 
 Segment::~Segment()
 {
