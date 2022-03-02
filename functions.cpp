@@ -1,6 +1,6 @@
 /* HERE ARE EXTRA FUNCTIONS FOR THE DEVELOPMENT OF PROJECT */
-#include "../main.hpp"
-#include "vehicle.hpp"
+#include "../main.h"
+#include "vehicle.h"
 
 string randStr() // return random string of 10 characters for author and title of book
 {

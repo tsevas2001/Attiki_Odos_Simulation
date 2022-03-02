@@ -1,6 +1,6 @@
-#ifndef VEHICLE_HPP
-#define VEHICLE_HPP
-#include "../main.hpp"
+#ifndef VEHICLE_H
+#define VEHICLE_H
+#include "../main.h"
 
 enum states
 {

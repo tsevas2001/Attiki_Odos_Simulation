@@ -1,5 +1,5 @@
-#include "../headers/toll.hpp"
-#include "../main.hpp"
+#include "../headers/toll.h"
+#include "../main.h"
 
 Toll::Toll(const vector<Vehicle *> &vehicles)
 {

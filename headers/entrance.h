@@ -1,8 +1,7 @@
-#ifndef ENTRANCE_HPP
-#define ENTRANCE_HPP
-#include "../main.hpp"
-#include "segment.hpp"
-#include "toll.hpp"
+#ifndef ENTRANCE_H
+#define ENTRANCE_H
+#include "../main.h"
+#include "toll.h"
 
 class Entrance
 {

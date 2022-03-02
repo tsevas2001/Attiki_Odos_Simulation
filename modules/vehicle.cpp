@@ -1,4 +1,4 @@
-#include "../headers/vehicle.hpp"
+#include "../headers/vehicle.h"
 
 Vehicle::Vehicle(int node, int segm) : exitNode{node}, currentSegm{segm}
 {

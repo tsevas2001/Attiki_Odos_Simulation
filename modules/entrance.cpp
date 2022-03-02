@@ -1,5 +1,5 @@
-#include "../headers/entrance.hpp"
-#include "../main.hpp"
+#include "../headers/entrance.h"
+#include "../main.h"
 
 Entrance::Entrance(int n, int collectorNum, int eNum, int Segs) : nodeNum(n), nSegs(nSegs)
 {
@@ -48,7 +48,7 @@ Entrance::Entrance(int n, int collectorNum, int eNum, int Segs) : nodeNum(n), nS
         this->eTolls.push_back(new EToll(vehicles));
     }
 
-    this->totalCap = 3 * Entrance::K;
+    this->totalCap = 3 * K;
 
     cout << "Gate Created!" << endl;
 }
@@ -104,10 +104,10 @@ vector<Vehicle *> Entrance::exit(int segmentCap)
     }
 
     // 1 thirdof the total load is handled by the manned Toll Booths
-    int handledByManned = min<int>(segmentCap / 3, Entrance::K);
+    int handledByManned = min<int>(segmentCap / 3, K);
     cout << handledByManned << " cars will be handled by manned booths" << endl;
     // 2 thirds(2K) are handled by the unmanned Toll Booths
-    int handledByUnmanned = min<int>(segmentCap - handledByManned, 2 * Entrance::K); //=2segmentcap/3, most of the load goes to unmanned booths
+    int handledByUnmanned = min<int>(segmentCap - handledByManned, 2 * K); //=2segmentcap/3, most of the load goes to unmanned booths
     cout << handledByUnmanned << " cars will be handled by unmanned booths" << endl;
 
     // The load a single booth handles is, at maximum, singleLoad + 1

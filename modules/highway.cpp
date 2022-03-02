@@ -1,21 +1,22 @@
-#include "../headers/highway.hpp"
+#include "../headers/highway.h"
 
-Highway::Highway()
+Highway::Highway(int nSegs) : nSegs(nSegs)
 {
     int carCapacity, manNum, unNum;
-    vector<Segment*> addSegs;
+    vector<Segment *> addSegs;
     nSegs = 0;
-    Segment* prevSeg = nullptr;
+    Segment *prevSeg = nullptr;
 
-    for (int i = 0; i < nSegs; i++){
+    for (int i = 0; i < nSegs; i++)
+    {
         cout << "Enter capacity: " << i;
-        cin >>  carCapacity;
+        cin >> carCapacity;
 
         manNum = rand() % 8 + 1;
         unNum = rand() % 8 + 1;
 
         addSegs.push_back(new Segment(new Entrance(i, manNum, unNum, nSegs), carCapacity, prevSeg, i, nSegs));
-        
+
         prevSeg = addSegs[i];
         segments.push_back(addSegs[i]);
     }
@@ -24,21 +25,25 @@ Highway::Highway()
 
 void Highway::operate()
 {
-    for (int i = segments.size() - 1; i >= 0; i--){
+    for (int i = segments.size() - 1; i >= 0; i--)
+    {
         cout << "Segment " << i << endl;
         segments[i]->operate();
     }
     cout << "Highway operation completed successfully!" << endl;
 }
 
-void Highway::set(int total){
+void Highway::set(int total)
+{
     nSegs = total;
 }
 
-void Highway::print(){
+void Highway::print()
+{
     int i = 0;
 
-    for (Segment* seg : segments) {
+    for (Segment *seg : segments)
+    {
         cout << "Segment id:" << i << endl;
         i++;
     }
@@ -46,8 +51,7 @@ void Highway::print(){
 
 Highway::~Highway()
 {
-    for(Segment* seg : segments){
+    for (Segment *seg : segments)
         delete seg;
-    }
     cout << "Highway destroyed successfully!" << endl;
 }

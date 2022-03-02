@@ -1,17 +1,16 @@
-#ifndef SEGMENT_HPP
-#define SEGMENT_HPP
-#include "../main.hpp"
-#include "highway.hpp"
-#include "vehicle.hpp"
-#include "entrance.hpp"
+#ifndef SEGMENT_H
+#define SEGMENT_H
+#include "../main.h"
+#include "entrance.h"
+#include "vehicle.h"
 
 class Segment
 {
 private:
-    Entrance* ent;
-    vector<Vehicle*> vehicles;
-    Segment* next;
-    Segment* previous;
+    Entrance *ent;
+    vector<Vehicle *> vehicles;
+    Segment *next;
+    Segment *previous;
     int capacity;
     int entered;
     int passed;
@@ -19,7 +18,7 @@ private:
     int percent;
 
 public:
-    Segment(Entrance*, int, Segment*, int, int);
+    Segment(Entrance *, int, Segment *, int, int);
     void enter(vector<Vehicle *>);
     void exit();
     void pass();

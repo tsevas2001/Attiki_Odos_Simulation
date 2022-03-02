@@ -1,4 +1,4 @@
-#include "../headers/segment.hpp"
+#include "../headers/segment.h"
 
 Segment::Segment(Entrance *en, int cap, Segment *pre, int id, int nSegs) : ent{en}, capacity{cap}, previous{pre}, next{nullptr}
 {

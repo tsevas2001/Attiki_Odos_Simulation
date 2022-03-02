@@ -1,7 +1,7 @@
-#ifndef toll_HPP
-#define toll_HPP
-#include "../main.hpp"
-#include "entrance.hpp"
+#ifndef toll_H
+#define toll_H
+#include "../main.h"
+#include "vehicle.h"
 
 class Toll
 {
