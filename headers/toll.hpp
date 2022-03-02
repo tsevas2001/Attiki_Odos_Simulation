@@ -5,32 +5,28 @@
 
 class Toll
 {
+private:
+    vector<Vehicle *> waitingVehicles;
+
 public:
     Toll(const vector<Vehicle *> &);
     virtual ~Toll();
-
     void enter(Vehicle *);
     vector<Vehicle *> exit(int); // amount of vehicles which are about to exit from toll
-
     int getWaitingVehicles();
-
-protected:
-    vector<Vehicle *> waitingVehicles;
 };
 
-class eToll : public Toll
+class EToll : public Toll
 {
-
 public:
-    eToll(const std::vector<Vehicle *> &);
+    eToll(const vector<Vehicle *> &);
     ~eToll();
 };
 
-class collectorToll : public Toll
+class CollectorToll : public Toll
 {
-
 public:
-    collectorToll(const std::vector<Vehicle *> &);
+    collectorToll(const vector<Vehicle *> &);
     ~collectorToll();
 };
 

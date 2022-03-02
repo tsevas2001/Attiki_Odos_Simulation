@@ -7,27 +7,24 @@
 class Entrance
 {
 private:
-    void addToBooths();
-    vector<Vehicle *> removeFromBooths(int);
-    void incrementCapacity();
-    void decrementCapacity();
-
-    const int node;
-    vector<collectorToll *> collectorTolls;
-    vector<eToll *> eTolls;
-
+    const int nodeNum;
+    vector<CollectorToll *> collectorTolls;
+    vector<EToll *> eTolls;
     int totalCap; // added here to help with some checks
     static int K;
 
 public:
     Entrance(int, int, int);
     ~Entrance();
-
+    void enter();
+    vector<Vehicle *> exit(int);
+    void increaseCap(); // increase capacity
+    void decreaseCap(); // decrease capacity
     vector<Vehicle *> operate(int);
 
-    int getNode() const { return node; }
+    int getNodeNum();
     int waitingVehicles();
-    static void setK(int Kval) { K = Kval; } // initialiser
+    // static void setK(int Kval) { K = Kval; } // initialiser
 };
 
 #endif

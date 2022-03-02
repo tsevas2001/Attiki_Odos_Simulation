@@ -19,7 +19,7 @@ private:
     int percent;
 
 public:
-    Segment(Entrance*, int, Segment *, int);
+    Segment(Entrance*, int, Segment *, int, int);
     void enter(vector<Vehicle*>);
     void exit();
     void pass();

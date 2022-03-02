@@ -3,7 +3,6 @@
 
 Toll::Toll(const vector<Vehicle *> &vehicles)
 {
-
     for (Vehicle *vehicle : vehicles)
         this->enter(vehicle);
 }
@@ -16,7 +15,6 @@ Toll::~Toll()
 
 void Toll::enter(Vehicle *vehicle)
 {
-
     this->waitingVehicles.push_back(vehicle);
 }
 
@@ -56,22 +54,22 @@ int Toll::getWaitingVehicles()
     return this->waitingVehicles.size();
 }
 
-collectorToll::collectorToll(const std::vector<Vehicle *> &vehicles) : Toll(vehicles)
+CollectorToll::CollectorToll(const std::vector<Vehicle *> &vehicles) : Toll(vehicles)
 {
     cout << "Toll with collector created" << endl;
 }
 
-collectorToll::~collectorToll()
+CollectorToll::~CollectorToll()
 {
     cout << "Toll with collector destroyed" << endl;
 }
 
-eToll::eToll(const std::vector<Vehicle *> &vehicles) : Toll(vehicles)
+EToll::EToll(const std::vector<Vehicle *> &vehicles) : Toll(vehicles)
 {
     cout << "E-Toll created" << endl;
 }
 
-eToll::~eToll()
+EToll::~EToll()
 {
     cout << "E-Toll destroyed" << endl;
 }
