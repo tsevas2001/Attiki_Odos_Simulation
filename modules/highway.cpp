@@ -4,7 +4,6 @@ Highway::Highway(int nSegs) : nSegs(nSegs)
 {
     int carCapacity, manNum, unNum;
     vector<Segment *> addSegs;
-    nSegs = 0;
     Segment *prevSeg = nullptr;
 
     for (int i = 0; i < nSegs; i++)

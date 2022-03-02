@@ -1,9 +1,8 @@
 #include "../headers/segment.h"
 
-Segment::Segment(Entrance *en, int cap, Segment *pre, int id, int nSegs) : ent{en}, capacity{cap}, previous{pre}, next{nullptr}
+Segment::Segment(Entrance *en, int cap, Segment *pre, int id, int nSegs, int percent) : ent{en}, capacity{cap}, previous{pre}, next{nullptr}, percent(percent)
 {
     cout << "Creating segment with ID: " << id << endl;
-    percent = 0;
 
     int alreadyCarsIn = rand() % (capacity * 2 / 3) + 1;
 
