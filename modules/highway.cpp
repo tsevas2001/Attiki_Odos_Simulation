@@ -14,7 +14,7 @@ Highway::Highway()
         manNum = rand() % 8 + 1;
         unNum = rand() % 8 + 1;
 
-        addSegs.push_back(new Segment(new Entrance(i, manNum, unNum), carCapacity, prevSeg, i, nSegs));
+        addSegs.push_back(new Segment(new Entrance(i, manNum, unNum, nSegs), carCapacity, prevSeg, i, nSegs));
         
         prevSeg = addSegs[i];
         segments.push_back(addSegs[i]);

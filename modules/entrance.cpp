@@ -1,24 +1,50 @@
 #include "../headers/entrance.hpp"
 #include "../main.hpp"
 
-int Entrance::K = 0;
-
-Entrance::Entrance(int n, int manned, int unmanned) : nodeNum(n)
+Entrance::Entrance(int n, int collectorNum, int eNum, int Segs) : nodeNum(n), nSegs(nSegs)
 {
     cout << "Creating Gate..." << endl;
 
-    for (int i = 0; i < manned; i++)
-    {
-        int carsToEnter = rand() % 5 + 1;
+    K = 0;
 
-        vector<Vehicle *> vehicles = Vehicle::randVehicles(carsToEnter, this->nodeNum);
+    for (int i = 0; i < collectorNum; i++)
+    {
+        int vehiclesRandNum = rand() % 5 + 1; // random vehicles which are about to enter
+
+        vector<Vehicle *> vehicles;
+
+        int exitNode = 0;
+        for (int i = 0; i < vehiclesRandNum; i++)
+        {
+            if ((nSegs - 1 - nodeNum) != 0)
+                exitNode = (rand() % nSegs - 1 - vehiclesRandNum) + vehiclesRandNum;
+            else
+                exitNode = vehiclesRandNum;
+
+            Vehicle *vehicle = new Vehicle(-1, exitNode);
+            vehicles.push_back(vehicle);
+        }
+
         this->collectorTolls.push_back(new CollectorToll(vehicles));
     }
 
-    for (int i = 0; i < unmanned; i++)
+    for (int i = 0; i < eNum; i++)
     {
-        int carsToEnter = rand() % 5 + 1;
-        vector<Vehicle *> vehicles = Vehicle::randVehicles(carsToEnter, this->nodeNum);
+        int vehiclesRandNum = rand() % 5 + 1;
+        vector<Vehicle *> vehicles;
+
+        int exitNode = 0;
+        for (int i = 0; i < vehiclesRandNum; i++)
+        {
+
+            if ((nSegs - 1 - nodeNum) != 0)
+                exitNode = (rand() % nSegs - 1 - vehiclesRandNum) + vehiclesRandNum;
+            else
+                exitNode = vehiclesRandNum;
+
+            Vehicle *vehicle = new Vehicle(-1, exitNode);
+            vehicles.push_back(vehicle);
+        }
         this->eTolls.push_back(new EToll(vehicles));
     }
 
@@ -161,7 +187,20 @@ void Entrance::enter()
     for (CollectorToll *booth : this->collectorTolls)
     {
         int amount = rand() % 3;
-        vector<Vehicle *> vehiclesToAdd = Vehicle::randVehicles(amount, this->nodeNum);
+        vector<Vehicle *> vehiclesToAdd;
+
+        int exitNode = 0;
+        for (int i = 0; i < amount; i++)
+        {
+
+            if ((nSegs - 1 - nodeNum) != 0)
+                exitNode = (rand() % nSegs - 1 - amount) + amount;
+            else
+                exitNode = amount;
+
+            Vehicle *vehicle = new Vehicle(-1, exitNode);
+            vehiclesToAdd.push_back(vehicle);
+        }
 
         for (Vehicle *vehicle : vehiclesToAdd)
             booth->enter(vehicle);
@@ -169,7 +208,21 @@ void Entrance::enter()
     for (EToll *booth : this->eTolls)
     {
         int amount = rand() % 3;
-        vector<Vehicle *> vehiclesToAdd = Vehicle::randVehicles(amount, this->nodeNum);
+
+        vector<Vehicle *> vehiclesToAdd;
+
+        int exitNode = 0;
+        for (int i = 0; i < amount; i++)
+        {
+
+            if ((nSegs - 1 - nodeNum) != 0)
+                exitNode = (rand() % nSegs - 1 - amount) + amount;
+            else
+                exitNode = amount;
+
+            Vehicle *vehicle = new Vehicle(-1, exitNode);
+            vehiclesToAdd.push_back(vehicle);
+        }
 
         for (Vehicle *vehicle : vehiclesToAdd)
             booth->enter(vehicle);

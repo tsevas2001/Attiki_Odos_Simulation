@@ -1,6 +1,6 @@
 #ifndef HIGHWAY_HPP
 #define HIGHWAY_HPP
-#include "main.hpp"
+#include "../main.hpp"
 #include "segment.hpp"
 
 class Highway

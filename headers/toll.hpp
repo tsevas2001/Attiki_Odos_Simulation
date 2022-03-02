@@ -1,6 +1,6 @@
 #ifndef toll_HPP
 #define toll_HPP
-#include "main.hpp"
+#include "../main.hpp"
 #include "entrance.hpp"
 
 class Toll
@@ -19,15 +19,15 @@ public:
 class EToll : public Toll
 {
 public:
-    eToll(const vector<Vehicle *> &);
-    ~eToll();
+    EToll(const vector<Vehicle *> &);
+    ~EToll();
 };
 
 class CollectorToll : public Toll
 {
 public:
-    collectorToll(const vector<Vehicle *> &);
-    ~collectorToll();
+    CollectorToll(const vector<Vehicle *> &);
+    ~CollectorToll();
 };
 
 #endif

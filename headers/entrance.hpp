@@ -1,6 +1,6 @@
 #ifndef ENTRANCE_HPP
 #define ENTRANCE_HPP
-#include "main.hpp"
+#include "../main.hpp"
 #include "segment.hpp"
 #include "toll.hpp"
 
@@ -12,9 +12,10 @@ private:
     vector<EToll *> eTolls;
     int totalCap; // added here to help with some checks
     static int K;
+    int nSegs;
 
 public:
-    Entrance(int, int, int);
+    Entrance(int, int, int, int);
     ~Entrance();
     void enter();
     vector<Vehicle *> exit(int);

@@ -7,23 +7,22 @@ Segment::Segment(Entrance *en, int cap, Segment *pre, int id, int nSegs) : ent{e
 
     int alreadyCarsIn = rand() % (capacity * 2 / 3) + 1;
 
-    vector<Vehicle*> addVehs;
+    vector<Vehicle *> addVehs;
     int exitNode = 0;
-    for(int i = 0; i < alreadyCarsIn; i++){
+    for (int i = 0; i < alreadyCarsIn; i++)
+    {
 
         if ((nSegs - 1 - ent->getNodeNum()) != 0)
-            exitNode = (rand() % nSegs-1 - alreadyCarsIn) + alreadyCarsIn;
+            exitNode = (rand() % nSegs - 1 - alreadyCarsIn) + alreadyCarsIn;
         else
             exitNode = alreadyCarsIn;
 
-        Vehicle* vehicle = new Vehicle(-1, exitNode);
+        Vehicle *vehicle = new Vehicle(-1, exitNode);
         addVehs.push_back(vehicle);
-
     }
 
-    for(Vehicle* veh : addVehs){
-        veh.push_back(veh);
-    }
+    for (Vehicle *veh : addVehs)
+        vehicles.push_back(veh);
 
     entered = 0;
     passed = 0;
@@ -90,7 +89,7 @@ void Segment::pass()
     // find the cars that should pass
     for (i = 0; i < vehicles.size(); i++)
     {
-        if (vehicles[i]->isReady() && (vehicles[i]->getExitNode() != ent->getExitNode()))
+        if (vehicles[i]->isReady() && (vehicles[i]->getExitNode() != ent->getNodeNum()))
         {
             cout << "Car: " << i << " is ready!" << endl;
             vehToPass.push_back(vehicles[i]);

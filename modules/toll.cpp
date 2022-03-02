@@ -20,15 +20,9 @@ void Toll::enter(Vehicle *vehicle)
 
 vector<Vehicle *> Toll::exit(int vehiclesToExit)
 {
-    // this bit of logic will be left up to the Entrance Class
-    //  if(amountNeeded >= this->entryCap){
-    //      amountNeeded = this->entryCap;
-    //  }
     if (vehiclesToExit > this->waitingVehicles.size()) // amount of vehicles which are about to exit are more than waiting vehicles
     {
-        cout << "Not enough cars waiting in toll booth, passing "
-             << this->waitingVehicles.size() << " instead of "
-             << vehiclesToExit << endl;
+        cout << "Sorry there are not enough vehicles waiting" << endl;
         vehiclesToExit = this->waitingVehicles.size();
     }
     cout << "Entered TollBooth::removeFromQueue()" << endl;
