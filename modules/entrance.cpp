@@ -1,11 +1,10 @@
 #include "../headers/entrance.h"
 #include "../main.h"
 
-Entrance::Entrance(int n, int collectorNum, int eNum, int Segs) : nodeNum(n), nSegs(nSegs)
+Entrance::Entrance(int n, int collectorNum, int eNum, int Segs, int k) : nodeNum(n), nSegs(nSegs), K(k)
 {
     cout << "Creating Gate..." << endl;
 
-    K = 0;
 
     for (int i = 0; i < collectorNum; i++)
     {

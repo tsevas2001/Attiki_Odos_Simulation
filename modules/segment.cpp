@@ -172,6 +172,10 @@ void Segment::setPrevious(Segment *seg)
     cout << "Next segment set!" << endl;
 }
 
+int Segment::get_no_of_vahicles(){
+    return vehicles.size();
+}
+
 // Returns the number of ready vehicles
 int Segment::getReadyVeh()
 {

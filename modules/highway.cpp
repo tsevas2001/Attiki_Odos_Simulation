@@ -1,6 +1,6 @@
 #include "../headers/highway.h"
 
-Highway::Highway(int nSegs) : nSegs(nSegs)
+Highway::Highway(int nSegs, int percent, int k) : nSegs(nSegs)
 {
     int carCapacity, manNum, unNum;
     vector<Segment *> addSegs;
@@ -14,7 +14,7 @@ Highway::Highway(int nSegs) : nSegs(nSegs)
         manNum = rand() % 8 + 1;
         unNum = rand() % 8 + 1;
 
-        addSegs.push_back(new Segment(new Entrance(i, manNum, unNum, nSegs), carCapacity, prevSeg, i, nSegs));
+        addSegs.push_back(new Segment(new Entrance(i, manNum, unNum, nSegs, k), carCapacity, prevSeg, i, nSegs, percent));
 
         prevSeg = addSegs[i];
         segments.push_back(addSegs[i]);

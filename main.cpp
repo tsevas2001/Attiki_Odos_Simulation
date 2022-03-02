@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     int k = atoi(argv[3]);       // max amount of vehicles in a segment
     int percent = atoi(argv[4]); // percent per segment
 
-    Highway* highway = new Highway(nSegs);
+    Highway* highway = new Highway(nSegs, percent, k);
 
     for(int i = 0 ; i < n ; i++){
         highway->operate();

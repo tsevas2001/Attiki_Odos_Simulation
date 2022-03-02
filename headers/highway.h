@@ -11,7 +11,7 @@ private:
     int nSegs;
 
 public:
-    Highway(int);
+    Highway(int, int, int);
     void operate();
     void set(int);
     void print();

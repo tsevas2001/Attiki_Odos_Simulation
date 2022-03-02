@@ -7,14 +7,14 @@ ergasia5: main.o $(OBJ_DIR)/highway.o $(OBJ_DIR)/entrance.o $(OBJ_DIR)/segment.o
 
 run:
 
-	./project 20 200 2 3 3
+	./project 20 200 2 3 
 
 valgrind:
 
-	valgrind --leak-check=yes ./ergasia5 5 20 10 10 10
+	valgrind --leak-check=yes ./ergasia5 5 20 10 10 
 
 gdb:
-	gdb ./ergasia5 5 200 10 10 10
+	gdb ./ergasia5 5 200 10 10 
 
 clean: 
 

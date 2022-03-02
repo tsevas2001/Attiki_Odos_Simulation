@@ -10,11 +10,11 @@ private:
     vector<CollectorToll *> collectorTolls;
     vector<EToll *> eTolls;
     int totalCap; // added here to help with some checks
-    static int K;
+    int K;
     int nSegs;
 
 public:
-    Entrance(int, int, int, int);
+    Entrance(int, int, int, int, int);
     ~Entrance();
     void enter();
     vector<Vehicle *> exit(int);
