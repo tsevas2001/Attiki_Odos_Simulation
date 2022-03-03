@@ -1,29 +1,26 @@
 #include "../headers/entrance.h"
 #include "../main.h"
 
-Entrance::Entrance(int n, int collectorNum, int eNum, int Segs, int k) : nodeNum(n), nSegs(nSegs), K(k)
+Entrance::Entrance(int n, int collectorNum, int eNum, int Segs, int k) : nodeNum(n), nSegs(Segs), K(k)
 {
     cout << "Creating Gate..." << endl;
-
 
     for (int i = 0; i < collectorNum; i++)
     {
         int vehiclesRandNum = rand() % 5 + 1; // random vehicles which are about to enter
-
         vector<Vehicle *> vehicles;
 
         int exitNode = 0;
         for (int i = 0; i < vehiclesRandNum; i++)
         {
             if ((nSegs - 1 - nodeNum) != 0)
-                exitNode = (rand() % nSegs - 1 - vehiclesRandNum) + vehiclesRandNum;
+                exitNode = (rand() % (nSegs - 1 - nodeNum)) + nodeNum;
             else
-                exitNode = vehiclesRandNum;
+                exitNode = nodeNum;
 
-            Vehicle *vehicle = new Vehicle(-1, exitNode);
+            Vehicle *vehicle = new Vehicle(exitNode, -1);
             vehicles.push_back(vehicle);
         }
-
         this->collectorTolls.push_back(new CollectorToll(vehicles));
     }
 
@@ -35,13 +32,12 @@ Entrance::Entrance(int n, int collectorNum, int eNum, int Segs, int k) : nodeNum
         int exitNode = 0;
         for (int i = 0; i < vehiclesRandNum; i++)
         {
-
             if ((nSegs - 1 - nodeNum) != 0)
-                exitNode = (rand() % nSegs - 1 - vehiclesRandNum) + vehiclesRandNum;
+                exitNode = (rand() % (nSegs - 1 - nodeNum)) + nodeNum;
             else
-                exitNode = vehiclesRandNum;
+                exitNode = nodeNum;
 
-            Vehicle *vehicle = new Vehicle(-1, exitNode);
+            Vehicle *vehicle = new Vehicle(exitNode, -1);
             vehicles.push_back(vehicle);
         }
         this->eTolls.push_back(new EToll(vehicles));
@@ -64,7 +60,6 @@ Entrance::~Entrance()
 
 vector<Vehicle *> Entrance::operate(int segmentCap)
 {
-
     cout << "Operating entrance..." << endl;
     cout << "Removing " << segmentCap << " cars from toll booths..." << endl;
     vector<Vehicle *> removedCars = this->exit(segmentCap);
@@ -88,51 +83,38 @@ void Entrance::increaseCap()
 
 void Entrance::decreaseCap()
 {
-    // this->totalCap = this->totalCap - 3;
     totalCap = totalCap - 3;
 }
 
-// Lets min(segmentCap,totalCap) cars through the entrance into the next segment
 vector<Vehicle *> Entrance::exit(int segmentCap)
 {
     vector<Vehicle *> vehiclesToRemove;
 
     if (this->totalCap < segmentCap)
-    {
         segmentCap = this->totalCap;
-    }
 
-    // 1 thirdof the total load is handled by the manned Toll Booths
-    int handledByManned = min<int>(segmentCap / 3, K);
-    cout << handledByManned << " cars will be handled by manned booths" << endl;
+    int vehiclesByCollector = min<int>(segmentCap / 3, K); // take the smallest amount between capacity divided by 3 and K
+    cout << "Vehicles which will be handled by tolls with collector: " << vehiclesByCollector << endl;
     // 2 thirds(2K) are handled by the unmanned Toll Booths
-    int handledByUnmanned = min<int>(segmentCap - handledByManned, 2 * K); //=2segmentcap/3, most of the load goes to unmanned booths
-    cout << handledByUnmanned << " cars will be handled by unmanned booths" << endl;
+    int vehiclesByEtoll = min<int>(segmentCap - vehiclesByCollector, 2 * K); //=2segmentcap/3, most of the load goes to unmanned booths
+    cout << "Vehicles which will be handled by electronic tolls: " << vehiclesByEtoll << endl;
 
-    // The load a single booth handles is, at maximum, singleLoad + 1
-    int singleLoad = handledByManned / this->collectorTolls.size();
-    cout << "Each manned booth will handle at least " << singleLoad << " vehicles." << endl;
-    int leftovers = handledByManned % this->collectorTolls.size();
-    cout << leftovers << " leftover cars, will each be handled by a different booth." << endl;
+    int numOfCollectorVehicles = vehiclesByCollector / this->collectorTolls.size();
+    int numOfRemainingVehicles = vehiclesByCollector % this->collectorTolls.size();
 
-    // For every booth, if we have leftovers, we make is handle its load + 1 more car.
-    // If we dont, it just handles its own load
-    cout << "Removing cars from manned booths..." << endl;
-    for (CollectorToll *booth : this->collectorTolls)
+    for (CollectorToll *booth : this->collectorTolls) // for each booth  we have two cases: We have raiming vehicles or we dont have
     {
         vector<Vehicle *> vs;
-        if (0 != leftovers)
+        if (0 != numOfRemainingVehicles)
         {
-            cout << "Removing " << singleLoad << " cars + 1 leftover car..." << endl;
-            vs = booth->exit(singleLoad + 1);
-            leftovers--;
-            cout << "Cars removed!" << endl;
+            cout << "Removing vehicles on collector toll: " << numOfCollectorVehicles << endl;
+            vs = booth->exit(numOfCollectorVehicles + 1);
+            numOfRemainingVehicles--;
         }
-        else if (singleLoad != 0)
+        else if (numOfCollectorVehicles != 0)
         {
-            cout << "Removing " << singleLoad << " cars..." << endl;
-            vs = booth->exit(singleLoad);
-            cout << "Cars removed!" << endl;
+            cout << "Vehicles which are about to be removed: " << numOfCollectorVehicles << endl;
+            vs = booth->exit(numOfCollectorVehicles);
         }
         for (Vehicle *vehicle : vs)
         {
@@ -142,62 +124,53 @@ vector<Vehicle *> Entrance::exit(int segmentCap)
         }
     }
 
-    singleLoad = handledByUnmanned / this->eTolls.size();
-    cout << "Each unmanned booth will handle at least " << singleLoad << " vehicles." << endl;
-    leftovers = handledByUnmanned % this->eTolls.size();
-    cout << leftovers << " leftover cars, will each be handled by a different booth." << endl;
+    numOfCollectorVehicles = vehiclesByEtoll / this->eTolls.size();
+    numOfRemainingVehicles = vehiclesByEtoll % this->eTolls.size();
 
     cout << "Removing cars from unmanned booths..." << endl;
     for (EToll *booth : this->eTolls)
     {
-        vector<Vehicle *> vs;
-        if (0 != leftovers)
+        vector<Vehicle *> vehicles;
+        if (0 != numOfRemainingVehicles)
         {
-            cout << "Removing " << singleLoad << " cars + 1 leftover car..." << endl;
-            vs = booth->exit(singleLoad + 1);
-            leftovers--;
-            cout << "Cars removed!\n";
+            cout << "Removing vehicles on collector toll: " << numOfCollectorVehicles << endl;
+            vehicles = booth->exit(numOfCollectorVehicles + 1);
+            numOfRemainingVehicles--;
         }
-        else if (singleLoad != 0)
+        else if (numOfCollectorVehicles != 0)
         {
-            cout << "Removing " << singleLoad << " cars..." << endl;
-            vs = booth->exit(singleLoad);
-            cout << "Cars removed!\n";
+            cout << "Vehicles which are about to be removed: " << numOfCollectorVehicles << endl;
+            vehicles = booth->exit(numOfCollectorVehicles);
         }
         else
         {
-            cout << "No cars to push from this toll booth\n";
+            cout << "There are not cars to push" << endl;
         }
-        cout << "Pushing " << vs.size() << " removed vehicles through..." << endl;
-        for (Vehicle *vehicle : vs)
-        {
+
+        for (Vehicle *vehicle : vehicles) // here we are passing the vehicles from the currrent booth
             vehiclesToRemove.push_back(vehicle);
-        }
-        cout << "Vehicles from this booth passed!" << endl;
     }
     cout << "Passing vehicles to the segment..." << endl;
 
     return vehiclesToRemove;
 }
 
-// Adds vehicles to the entrance's TollBooths
 void Entrance::enter()
 {
     for (CollectorToll *booth : this->collectorTolls)
     {
-        int amount = rand() % 3;
+        int amount = rand() % 3; // set randomly the amount
         vector<Vehicle *> vehiclesToAdd;
 
         int exitNode = 0;
         for (int i = 0; i < amount; i++)
         {
-
             if ((nSegs - 1 - nodeNum) != 0)
-                exitNode = (rand() % nSegs - 1 - amount) + amount;
+                exitNode = (rand() % (nSegs - 1 - nodeNum)) + nodeNum;
             else
-                exitNode = amount;
+                exitNode = nodeNum;
 
-            Vehicle *vehicle = new Vehicle(-1, exitNode);
+            Vehicle *vehicle = new Vehicle(exitNode, -1);
             vehiclesToAdd.push_back(vehicle);
         }
 
@@ -215,11 +188,11 @@ void Entrance::enter()
         {
 
             if ((nSegs - 1 - nodeNum) != 0)
-                exitNode = (rand() % nSegs - 1 - amount) + amount;
+                exitNode = (rand() % (nSegs - 1 - nodeNum)) + nodeNum;
             else
-                exitNode = amount;
+                exitNode = nodeNum;
 
-            Vehicle *vehicle = new Vehicle(-1, exitNode);
+            Vehicle *vehicle = new Vehicle(exitNode, -1);
             vehiclesToAdd.push_back(vehicle);
         }
 

@@ -11,7 +11,7 @@ private:
     vector<EToll *> eTolls;
     int totalCap; // added here to help with some checks
     int K;
-    int nSegs;
+    int nSegs = 0;
 
 public:
     Entrance(int, int, int, int, int);

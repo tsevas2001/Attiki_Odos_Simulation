@@ -2,21 +2,19 @@
 
 Segment::Segment(Entrance *en, int cap, Segment *pre, int id, int nSegs, int percent) : ent{en}, capacity{cap}, previous{pre}, next{nullptr}, percent(percent)
 {
-    cout << "Creating segment with ID: " << id << endl;
+    cout << "Creating segment with ID[" << id << "]" << endl;
 
     int alreadyCarsIn = rand() % (capacity * 2 / 3) + 1;
-
     vector<Vehicle *> addVehs;
     int exitNode = 0;
     for (int i = 0; i < alreadyCarsIn; i++)
     {
-
         if ((nSegs - 1 - ent->getNodeNum()) != 0)
-            exitNode = (rand() % nSegs - 1 - alreadyCarsIn) + alreadyCarsIn;
+            exitNode = (rand() % (nSegs - 1 - en->getNodeNum())) + en->getNodeNum();
         else
-            exitNode = alreadyCarsIn;
+            exitNode = en->getNodeNum();
 
-        Vehicle *vehicle = new Vehicle(-1, exitNode);
+        Vehicle *vehicle = new Vehicle(exitNode, -1);
         addVehs.push_back(vehicle);
     }
 
@@ -39,6 +37,7 @@ void Segment::enter(vector<Vehicle *> addVehicles)
 
         cout << "Cars where can enter: " << capacity - vehicles.size() << endl;
         cout << "Cars left: " << addVehicles.size() << endl;
+        cout << endl;
 
         vehicles.push_back(addVehicles[0]);     //  adding the car in the array with every car in the highway
         addVehicles[0]->enter(numSeg);          // let the car to enter
@@ -172,7 +171,8 @@ void Segment::setPrevious(Segment *seg)
     cout << "Next segment set!" << endl;
 }
 
-int Segment::get_no_of_vahicles(){
+int Segment::get_no_of_vahicles()
+{
     return vehicles.size();
 }
 

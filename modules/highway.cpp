@@ -8,7 +8,8 @@ Highway::Highway(int nSegs, int percent, int k) : nSegs(nSegs)
 
     for (int i = 0; i < nSegs; i++)
     {
-        cout << "Enter capacity: " << i;
+        cout << "Enter capacity "
+             << "for segment[" << i << "]: ";
         cin >> carCapacity;
 
         manNum = rand() % 8 + 1;

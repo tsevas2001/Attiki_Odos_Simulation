@@ -8,7 +8,7 @@ class Highway
 private:
     vector<Segment*> segments; // a vector with all segments of highway
     int totalVehicles;
-    int nSegs;
+    int nSegs = 0;
 
 public:
     Highway(int, int, int);
