@@ -3,7 +3,6 @@
 Vehicle::Vehicle(int node, int segm) : exitNode{node}, currentSegm{segm}
 {
     ready = false; // initialize readiness with false for vehicle
-    cout << "Vehicle with " << " Current Segment: " << currentSegm << " Created Successfully!" << endl;
 }
 
 bool Vehicle::isReady()

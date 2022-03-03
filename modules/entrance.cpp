@@ -144,7 +144,7 @@ vector<Vehicle *> Entrance::exit(int segmentCap)
         }
         else
         {
-            cout << "There are not cars to push" << endl;
+            cout << "There are NO vehicles to push" << endl;
         }
 
         for (Vehicle *vehicle : vehicles) // here we are passing the vehicles from the currrent booth

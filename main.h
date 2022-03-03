@@ -7,7 +7,3 @@
 #include <iterator>
 
 using namespace std;
-
-/* FUNCTIONS PROTOTYPES */
-string randStr();
-int randNum();
